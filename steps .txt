@@ -1,0 +1,15 @@
+* ) Create New Project in Pycharm 
+		File> New Project >
+
+1 ) to Install Django 
+		'pip install django'
+
+2 ) Create Django Project - 
+		'django-admin startproject Project_Name'
+		
+3 ) Changed the directory - 
+		'cd Project_Name'
+
+4 ) Lets check running the project    
+		'python manage.py runserver'
+		
