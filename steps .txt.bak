@@ -72,13 +72,73 @@
 	Models <-> Views <-> Templates
 	
 	aim : Show the html page on url 
-	*) create a html page inside templates of newly create application (loan)
+	*) create a html page inside templates of newly create application (social)
 			ex. home.html
 			
 	a) create function for that html page in views.py 
 			ex. 	def home(request):
 						return render(request, 'home.html')
 					
-	b) add a path inside 'list of urlspatterns' of newly created urls.py (loan/urls.py) 
-			ex. 	    path('home/', views.home, name='home')
+	b) add a path inside 'list of urlspatterns' of newly created urls.py (social/urls.py) 
+			ex. 	    path('home/', views.home)
 			
+
+
+*) How to load a static file into HTML page 
+	a) open settings.py add the following code
+		import os
+		STATICFILES_DIRS = (
+			os.path.join(BASE_DIR, 'static'),
+		)
+	b) create a folder inside your main directory as 'static'
+		- Django_project
+			- Django_project
+			- django_app
+			- manage.py 
+			- static ( create a new file )
+				- img
+					- bank.png
+	
+	c) we need to add the following code inside html page to make use static files 
+			{% load static %}
+			
+	d) to use image from static file 
+			need to add the path in following format 
+			( src= "{% static 'img/bank1.png' %}" )
+			
+			
+	e) for make use of urls in href we need to write urls in following format
+			( href="{% url 'home' %}" )
+
+
+									%%%%% Problem Statement %%%%%
+	
+	*  TA Social Media Web-Application for college students 
+	
+	1) Authentication System 
+		- Login a User
+		- Register a User 
+		
+	2) Types of User - Student & Staff 
+	3) Profile for each user
+	4) CRUD operations on data of User 
+	5) CRUD operations on Content/Posts of Students 
+	6) There can be multiple departments in college 
+	7) students  - name of student , College name, Department, year of admission, year of passout, personal details, docuements, 
+	8) Teacher - name of teacher , college name, Department, Subject, personal details, and documents, 
+	9) college - name of college, established, college code, address, no of teachers, no of students, no of departments, 
+	10) Posts - title, photo, date, descriptions , comments, likes, share, edit, delete, save 
+	11) Jobs - title, name comapany, job descriptions, end date, CRUD 
+	12) Searching 
+	13) add Posts 
+	14) profile for college 
+	15) REST API... 
+	
+
+Templates - Profile(student, teacher, college), Home, Login(student, staff), Registration, Jobs, add posts, edit post, profile edit, searching page
+
+
+
+
+	
+	
