@@ -2,13 +2,83 @@
 		File> New Project >
 
 1 ) to Install Django 
-		'pip install django'
+		'pip install django'			- Package consist of django, tzdata, sqlphrase, 
+
 
 2 ) Create Django Project - 
-		'django-admin startproject Project_Name'
+		'django-admin startproject Project_Name'		
+		
 		
 3 ) Changed the directory - 
 		'cd Project_Name'
 
+
 4 ) Lets check running the project    
-		'python manage.py runserver'
+		'python manage.py runserver'				- 127.0.0.1:8000
+
+
+5 ) Will add the migrations to database ( Connect Django with Database ) 
+		'python manage.py makemigrations'      	- Check the activity of database 
+		'python manage.py migrate'           	- add the migrations to database 
+	
+	
+6) Create SuperAdmin :
+		'python manage.py createsuperuser'				
+			Username : admin
+			Email :
+			Password : same
+			Password(again) : same 
+
+7 ) create app inside Project
+		'django-admin startapp APP_NAME'
+		
+		
+8 ) the application created should be added inside Installed applications in 	settings.py 
+			INSTALLED_APPS = [
+				'django.contrib.admin',
+				'django.contrib.auth',
+				'django.contrib.contenttypes',
+				'django.contrib.sessions',
+				'django.contrib.messages',
+				'django.contrib.staticfiles',
+				'aaps.social',
+			]
+			
+9)	change the name of app in apps.py of newely created app 
+			class SocialConfig(AppConfig):
+				default_auto_field = 'django.db.models.BigAutoField'
+				name = 'apps.social'
+				
+10)	we have to create urls.py file in newly created app (social)
+
+11) now we need to include urls.py file from  newly create app (social) into projects main urls.py file as below 
+
+		from django.contrib import admin
+		from django.urls import path, include
+
+		urlpatterns = [
+			path('admin/', admin.site.urls),
+			path('', include('apps.social.urls'))
+		]
+		
+11 ) Create a templates directory inside newly created app   (social)
+
+
+12 ) inside templates we can create multiple html files and access it using functions of views.py
+
+
+
+*) MVT 
+	Models <-> Views <-> Templates
+	
+	aim : Show the html page on url 
+	*) create a html page inside templates of newly create application (loan)
+			ex. home.html
+			
+	a) create function for that html page in views.py 
+			ex. 	def home(request):
+						return render(request, 'home.html')
+					
+	b) add a path inside 'list of urlspatterns' of newly created urls.py (loan/urls.py) 
+			ex. 	    path('home/', views.home, name='home')
+			
