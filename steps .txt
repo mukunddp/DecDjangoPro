@@ -195,3 +195,62 @@ Templates - Profile(student, teacher, college), Home, Login(student, staff), Reg
 						return redirect('index')
 
 
+# Read the Entries from DB
+		
+		*- create a HTML Page for showing the data 
+		*- write a function for opening that html page 
+		*- add path for above function into urls.py 
+		*- to get all the data from DB will write a varible and in that call the data from class of models.py
+			
+			synatax:
+				variable = NAME_CLASS_MODELS.objects.all() 	# this will get all the data from perticular class 
+															name and store into variable
+			ex: 												
+				show = Student.objects.all()					
+															
+															
+		*- now to send the data to html we need to use render function where will pass the 3rd parameter as context ( context should be in the form of dictionary )
+			return render(request, 'student_details.html', {'show': show})
+			
+		*- By using Jinja Templating we can access the varible which we are passing as third parameter
+		
+		
+		
+# Update the Entries from DB
+		*- create a HTML Page for showing the edit form 
+		*- write a function for opening that html page with perticular id as pk
+		*- add path for above function into urls.py  with perticular id as pk
+		*- to get all the data from DB will get a object for perticular id { .objects.get(id=value)}
+		ex: 
+			def edit_student(request, pk):
+				show = Student.objects.get(id=pk)
+				return render(request, 'edit_details.html', {'data': show})
+						
+		*- to show on HTML.. 
+			use that data key in input field by passing pericular field to respective input field 
+				use below attribute in input
+					value = "{{ data.field }}"
+
+		*- create a function to update a data for perticular id as pk
+			refere below to get id from url which is pk and passing as paramater and going to it inside student objects as below and we will get student details of perticular id, 
+		
+		ex:
+			def edit_details(request, pk):
+				s = Student.objects.get(id=pk)
+				..... ( all the fields )
+				s.save()
+				return redirect('student_details')
+				
+		*- now to modify data we will use data from front end and assign to respective fields and save()
+		
+			
+# Delete the Entries from DB
+		*- write a function for deleting with perticular id as pk
+		*- add path for above function into urls.py  with perticular id as pk
+		*- will call a object while passing perticular id into it and delete the object as below 
+		
+		ex: 
+			def delete_student(request,pk):
+				s = Student.objects.get(id=pk)
+				s.delete()
+				return redirect('student_details')

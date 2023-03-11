@@ -1,25 +1,27 @@
 {% extends 'base.html' %}
-{% block pagetitle %} Edukate - Add Student {% endblock pagetitle %}
+{% block pagetitle %} Edukate - Home {% endblock pagetitle %}
 {% load static %}
 {% block content %}
 
 {% include 'navbar.html' %}
+
+
 <section class="vh-100 gradient-custom">
     <div class="container py-5 h-100">
         <div class="row justify-content-center align-items-center h-100">
             <div class="col-12 col-lg-9 col-xl-7">
                 <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
                     <div class="card-body p-4 p-md-5">
-                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Student Admission Form</h3>
+                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Edit Student Details</h3>
 
-                        <form action="{% url 'store_student' %}" method="post">
+                        <form action="{% url 'edit_details' data.id %}" method="post">
                             {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-6 mb-4">
 
                                     <div class="form-outline">
                                         <label for="firstName">Student Name</label>
-                                        <input type="text" id="firstName" class="form-row" name="student_name"
+                                        <input type="text" id="firstName" class="form-row" name="student_name" value="{{data.name_student}}"
                                             required />
 
                                     </div>
@@ -29,7 +31,7 @@
 
                                     <div class="form-outline">
                                         <label for="lastName">College Name</label>
-                                        <input type="text" id="lastName" class="form-row" name="clg_name" required />
+                                        <input type="text" id="lastName" class="form-row" name="clg_name" value="{{data.name_college}}" required />
 
                                     </div>
 
@@ -43,7 +45,7 @@
                                     <div class="form-outline">
                                         <label class="form-label" for="firstName">Department</label>
 
-                                        <input type="text" id="firstName" class="form-row" name="department" required />
+                                        <input type="text" id="firstName" class="form-row"  value="{{data.department}}" name="department" required />
                                     </div>
 
                                 </div>
@@ -52,8 +54,8 @@
 
                                     <div class="form-outline">
                                         <label class="form-label select-label">year of passout</label>
-                                        <select class="select form-row" name="year" required>
-                                            <option value="2020" default>Choose option</option>
+                                        <select class="select form-row" name="year"  value="{{data.year_pass}}" required>
+                                           
                                             <option value="2020">2020</option>
                                             <option value="2021">2021</option>
                                             <option value="2022">2022</option>
@@ -70,7 +72,7 @@
 
                                     <div class="form-outline datepicker w-100">
                                         <label class="form-label">Mobile</label>
-                                        <input type="number" class="form-row" name="mobile" required />
+                                        <input type="number" class="form-row"  value="{{data.mobile}}" name="mobile" required />
                                     </div>
                                 </div>
                             </div>
@@ -87,4 +89,5 @@
         </div>
     </div>
 </section>
+
 {% endblock %}
