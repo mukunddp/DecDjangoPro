@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect ,HttpResponseRedirect , reverse
+from django.contrib.auth import authenticate, login, logout as auth_logout
 from .forms import SignUpForm, LoginForm
-from .models import Student
+from .models import Student, Profile, User
 
 def login_view(request):
     form = LoginForm(request.POST or None)
@@ -41,6 +41,12 @@ def register(request):
         form = SignUpForm()
     return render(request, 'register.html', {'form': form, 'msg': msg})
 
+#
+def logout(request):
+    if request.user.is_authenticated:
+        auth_logout(request)
+    return HttpResponseRedirect(reverse('login_view'))
+    # return redirect('login_view')
 
 # Create your views here.
 # def contact(request):
@@ -105,6 +111,21 @@ def jobs(request):
 
 def profile(request):
     return render(request, 'profile.html')
+
+def add_profile(request):
+    p = Profile()
+    p.name = request.POST.get('name')
+    p.mobile_no = request.POST.get('mobile_no')
+    p.mail_id = request.POST.get('mail_id')
+    p.address = request.POST.get('address')
+    p.department = request.POST.get('department')
+
+    # to store ForeignKey
+    uid = request.user.id
+    user_id = User.objects.get(id=uid)
+    p.user = user_id
+    p.save()
+    return redirect('index')
 
 
 def about(request):
