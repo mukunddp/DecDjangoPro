@@ -1,5 +1,10 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
+
+# Create your models here.
+class User(AbstractUser):
+    type_user = models.CharField(max_length=20)
 
 # Create your models here.
 class Student(models.Model):

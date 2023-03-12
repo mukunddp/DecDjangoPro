@@ -1,6 +1,45 @@
 from django.shortcuts import render, redirect
-
+from django.contrib.auth import authenticate, login
+from .forms import SignUpForm, LoginForm
 from .models import Student
+
+def login_view(request):
+    form = LoginForm(request.POST or None)
+    msg = None
+    if request.method == 'POST':
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            print('User name :', user.username)
+            # return redirect('index')
+            # print('department :', user.department)
+            if user is not None and user.type_user == "Student":
+                login(request, user)
+                return redirect('index')
+            elif user is not None and user.type_user == "Staff":
+                login(request, user)
+                return redirect('student_details')
+            else:
+                msg = 'invalid credentials'
+        else:
+            msg = 'error validating form'
+    return render(request, 'login.html', {'form': form, 'msg': msg})
+
+
+def register(request):
+    msg = None
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            msg = 'user created'
+            return redirect('login_view')
+        else:
+            msg = 'form is not valid'
+    else:
+        form = SignUpForm()
+    return render(request, 'register.html', {'form': form, 'msg': msg})
 
 
 # Create your views here.
@@ -62,14 +101,6 @@ def posts(request):
 
 def jobs(request):
     return render(request, 'jobs.html')
-
-
-def login(request):
-    return render(request, 'login.html')
-
-
-def register(request):
-    return render(request, 'register.html')
 
 
 def profile(request):
