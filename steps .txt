@@ -115,14 +115,14 @@
 	
 	*  TA Social Media Web-Application for college students 
 	
-	1) Authentication System 
+	. 1) Authentication System 
 		- Login a User
 		- Register a User 
 		
-	2) Types of User - Student & Staff 
+	. 2) Types of User - Student & Staff 
 	3) Profile for each user
-	4) CRUD operations on data of User 
-	5) CRUD operations on Content/Posts of Students 
+	. 4) CRUD operations on data of User 
+	. 5) CRUD operations on Content/Posts of Students 
 	6) There can be multiple departments in college 
 	7) students  - name of student , College name, Department, year of admission, year of passout, personal details, docuements, 
 	8) Teacher - name of teacher , college name, Department, Subject, personal details, and documents, 
@@ -254,7 +254,5 @@ Templates - Profile(student, teacher, college), Home, Login(student, staff), Reg
 				s = Student.objects.get(id=pk)
 				s.delete()
 				return redirect('student_details')
-				
-				
-				
+
 

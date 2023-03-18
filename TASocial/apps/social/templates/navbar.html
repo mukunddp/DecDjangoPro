@@ -10,21 +10,21 @@
         <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
             <div class="navbar-nav mx-auto py-0">
                 <a href="{% url 'index' %}" class="nav-item nav-link active">Home</a>
-                <a href="#about" class="nav-item nav-link">About</a>
-                {% if user.request.type_user == 'Staff' %}
-                <a href="{% url 'add_student' %}" class="nav-item nav-link">Add Student</a>
-                <a href="{% url 'student_details' %}" class="nav-item nav-link">Student Details </a>
-                {% endif %}
+                <a href="{% url 'posts' %}" class="nav-item nav-link">Posts</a>               
+                <a href="{% url 'jobs' %}" class="nav-item nav-link">Jobs</a>
+                <a href="{% url 'show_profile' %}" class="nav-item nav-link">My Profile</a>
+                {% if user.type_user == 'Staff' %}
                 <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Staff Area</a>
                     <div class="dropdown-menu m-0">
-                        <a href="detail.html" class="dropdown-item">Course Detail</a>
-                        <a href="feature.html" class="dropdown-item">Our Features</a>
-                        <a href="team.html" class="dropdown-item">Instructors</a>
+                        <a href="{% url 'add_student' %}" class="dropdown-item">Add Student</a>
+                        <a href="{% url 'student_details' %}" class="dropdown-item">Student Details</a>
+                        <a href="{% url 'add_jobs' %}" class="dropdown-item">Add Job Openings</a>
                         <a href="testimonial.html" class="dropdown-item">Testimonial</a>
                     </div>
                 </div>
-                <a href="contact.html" class="nav-item nav-link">Contact</a>
+                {% endif %} 
+                <a href="#" class="nav-item nav-link">Contact</a>
             </div>
 
             {% if user.is_authenticated %}

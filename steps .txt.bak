@@ -254,3 +254,5 @@ Templates - Profile(student, teacher, college), Home, Login(student, staff), Reg
 				s = Student.objects.get(id=pk)
 				s.delete()
 				return redirect('student_details')
+
+

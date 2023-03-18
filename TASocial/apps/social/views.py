@@ -1,7 +1,9 @@
-from django.shortcuts import render, redirect ,HttpResponseRedirect , reverse
 from django.contrib.auth import authenticate, login, logout as auth_logout
+from django.shortcuts import render, redirect, HttpResponseRedirect, reverse
+
 from .forms import SignUpForm, LoginForm
-from .models import Student, Profile, User
+from .models import Student, Profile, User, Jobs
+
 
 def login_view(request):
     form = LoginForm(request.POST or None)
@@ -11,7 +13,7 @@ def login_view(request):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
-            print('User name :', user.username)
+            # print('User name :', user.username)
             # return redirect('index')
             # print('department :', user.department)
             if user is not None and user.type_user == "Student":
@@ -41,12 +43,14 @@ def register(request):
         form = SignUpForm()
     return render(request, 'register.html', {'form': form, 'msg': msg})
 
+
 #
 def logout(request):
     if request.user.is_authenticated:
         auth_logout(request)
     return HttpResponseRedirect(reverse('login_view'))
     # return redirect('login_view')
+
 
 # Create your views here.
 # def contact(request):
@@ -77,6 +81,7 @@ def edit_student(request, pk):
     show = Student.objects.get(id=pk)
     return render(request, 'edit_details.html', {'data': show})
 
+
 def edit_details(request, pk):
     s = Student.objects.get(id=pk)
     s.name_student = request.POST.get('student_name')
@@ -87,7 +92,8 @@ def edit_details(request, pk):
     s.save()
     return redirect('student_details')
 
-def delete_student(request,pk):
+
+def delete_student(request, pk):
     s = Student.objects.get(id=pk)
     s.delete()
     return redirect('student_details')
@@ -105,12 +111,9 @@ def posts(request):
     return render(request, 'post.html')
 
 
-def jobs(request):
-    return render(request, 'jobs.html')
-
-
 def profile(request):
     return render(request, 'profile.html')
+
 
 def add_profile(request):
     p = Profile()
@@ -130,3 +133,24 @@ def add_profile(request):
 
 def about(request):
     return render(request, 'about.html')
+
+def jobs(request):
+    jobs = Jobs.objects.all()
+    return render(request, 'jobs.html', {'jobs':jobs})
+
+
+def add_jobs(request):
+    if request.method == 'POST':
+        job = Jobs()
+        job.title = request.POST.get('title')
+        job.company_name = request.POST.get('company_name')
+        job.description = request.POST.get('description')
+        job.link = request.POST.get('link')
+        job.save()
+        return redirect('jobs')
+    return render(request, 'add_jobs.html')
+
+#  View User Profiles
+def show_profile(request):
+
+    return render(request, 'show_profile.html')

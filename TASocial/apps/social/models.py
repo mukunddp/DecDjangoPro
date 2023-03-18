@@ -16,15 +16,15 @@ class Student(models.Model):
     year_pass = models.IntegerField()
     mobile = models.BigIntegerField()
 
-
-class Teacher(models.Model):
-    name_teacher = models.CharField(max_length=150)
-    name_college = models.CharField(max_length=150)
-    department = models.CharField(max_length=150)
-    subject = models.CharField(max_length=150)
-    address = models.CharField(max_length=200)
-    mobile = models.BigIntegerField()
-    age = models.IntegerField()
+#
+# class Teacher(models.Model):
+#     name_teacher = models.CharField(max_length=150)
+#     name_college = models.CharField(max_length=150)
+#     department = models.CharField(max_length=150)
+#     subject = models.CharField(max_length=150)
+#     address = models.CharField(max_length=200)
+#     mobile = models.BigIntegerField()
+#     age = models.IntegerField()
 
 
 class College(models.Model):
@@ -43,6 +43,8 @@ class Profile(models.Model):
     mail_id = models.EmailField()
     address = models.CharField(max_length=500)
     department = models.CharField(max_length=200)
+    age = models.IntegerField()
+
 
 
 # Updated
@@ -57,3 +59,4 @@ class Jobs(models.Model):
     title = models.CharField(max_length=200)
     company_name = models.CharField(max_length=200)
     description = models.TextField()
+    link = models.TextField()
